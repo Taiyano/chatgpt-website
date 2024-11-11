@@ -1,91 +1,94 @@
-/* Allgemeine Reset-Stile */
-* {
+/* Basic styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-/* Körper und Schrift */
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f4f4f4;
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
 }
 
-/* Header-Stil */
 header {
-    background: #333;
-    color: white;
-    padding: 10px 0;
     text-align: center;
-}
-
-header .logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-header nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-header nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-header nav ul li a {
+    background-color: #007BFF;
     color: white;
-    text-decoration: none;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+h1 {
+    margin: 0;
+}
+
+p {
     font-size: 18px;
 }
 
-/* Hover-Effekt für Links */
-header nav ul li a:hover {
-    text-decoration: underline;
+.game {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 20px;
 }
 
-/* Sektionen */
-.section {
-    padding: 50px 20px;
+#clickButton {
+    padding: 20px 40px;
+    font-size: 18px;
+    background-color: #F4A300; /* Cookie-like color */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Rounded button */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-image: url('https://www.pngkey.com/png/full/47-473897_cookie-png-cookie-png-transparent-png.png');
+    background-size: cover;
+    background-position: center;
+}
+
+#clickButton:hover {
+    background-color: #D48E1B;
+    background-image: url('https://www.pngkey.com/png/full/47-473897_cookie-png-cookie-png-transparent-png.png'); /* Keep cookie texture */
+}
+
+.upgrades {
+    margin-top: 30px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
     text-align: center;
 }
 
-.section h1, .section h2 {
+.upgrade {
     margin-bottom: 20px;
 }
 
-#home {
-    background-color: #4CAF50;
+.upgrade button {
+    padding: 10px 20px;
+    background-color: #007BFF;
     color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-#about {
-    background-color: #f2f2f2;
+.upgrade button:hover {
+    background-color: #0056b3;
 }
 
-#services {
-    background-color: #eeeeee;
-}
-
-#contact {
-    background-color: #333;
-    color: white;
-}
-
-/* Footer-Stil */
 footer {
-    background-color: #333;
-    color: white;
+    position: absolute;
+    bottom: 10px;
     text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-footer p {
-    margin: 0;
+    font-size: 14px;
+    color: #666;
 }
