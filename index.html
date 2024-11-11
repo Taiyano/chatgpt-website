@@ -6,42 +6,53 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Meine CSS-Website</title>
     <link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker Game with Upgrades, Cursor, and Clock</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="logo">Meine Website</div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">Über uns</a></li>
-                <li><a href="#services">Dienstleistungen</a></li>
-                <li><a href="#contact">Kontakt</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="container">
+        <header>
+            <h1>Clicker Game with Upgrades, Cursor, and Clock</h1>
+            <p>Click the button to collect points, buy upgrades, and earn points automatically with your cursor and clock!</p>
+        </header>
+        
+        <main>
+            <div class="game">
+                <p>Points: <span id="score">0</span></p>
+                <button id="clickButton">Click Me!</button>
+            </div>
+            
+            <div class="upgrades">
+                <h3>Upgrades</h3>
+                <div class="upgrade" id="upgrade1">
+                    <p>Upgrade 1: +1 Point per Click</p>
+                    <button id="upgradeButton1">Buy (Cost: <span id="upgrade1Cost">10</span> points)</button>
+                </div>
+                <div class="upgrade" id="upgrade2">
+                    <p>Upgrade 2: +5 Points per Click</p>
+                    <button id="upgradeButton2">Buy (Cost: <span id="upgrade2Cost">50</span> points)</button>
+                </div>
+                <div class="upgrade" id="cursorUpgrade">
+                    <p>Cursor: +1 Point per Click</p>
+                    <button id="cursorButton">Buy (Cost: <span id="cursorCost">100</span> points)</button>
+                </div>
+                <div class="upgrade" id="clockUpgrade">
+                    <p>Clock: +1 Click per Second</p>
+                    <button id="clockButton">Buy (Cost: <span id="clockCost">200</span> points)</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 My Game Website</p>
+        </footer>
+    </div>
 
-    <section id="home" class="section">
-        <h1>Willkommen auf meiner Website!</h1>
-        <p>Dies ist eine einfache Website, die mit HTML und CSS erstellt wurde.</p>
-    </section>
-
-    <section id="about" class="section">
-        <h2>Über uns</h2>
-        <p>Hier kannst du mehr über uns erfahren.</p>
-    </section>
-
-    <section id="services" class="section">
-        <h2>Unsere Dienstleistungen</h2>
-        <p>Wir bieten viele großartige Dienstleistungen an!</p>
-    </section>
-
-    <section id="contact" class="section">
-        <h2>Kontakt</h2>
-        <p>Kontaktiere uns über die angegebenen Kanäle.</p>
-    </section>
-
-    <footer>
-        <p>&copy; 2024 Meine Website. Alle Rechte vorbehalten.</p>
-    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
