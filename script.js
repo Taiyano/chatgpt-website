@@ -4,86 +4,114 @@ let cursorCount = 0; // Number of cursors
 let clockInterval = null; // For automatic clicks via clock
 let clockCount = 0; // Number of clocks
 
-// Elements
-const scoreElement = document.getElementById('score');
-const clickButton = document.getElementById('clickButton');
-const upgradeButton1 = document.getElementById('upgradeButton1');
-const upgradeButton2 = document.getElementById('upgradeButton2');
-const cursorButton = document.getElementById('cursorButton');
-const clockButton = document.getElementById('clockButton');
-const upgrade1CostElement = document.getElementById('upgrade1Cost');
-const upgrade2CostElement = document.getElementById('upgrade2Cost');
-const cursorCostElement = document.getElementById('cursorCost');
-const clockCostElement = document.getElementById('clockCost');
+// Load game state from cookies (if available)
+function loadGameState() {
+    const cookies = document.cookie.split('; ');
+    cookies.forEach(cookie => {
+        const [name, value] = cookie.split('=');
+        switch(name) {
+            case 'score':
+                score = parseInt(value);
+                break;
+            case 'pointsPerClick':
+                pointsPerClick = parseInt(value);
+                break;
+            case 'cursorCount':
+                cursorCount = parseInt(value);
+                break;
+            case 'clockCount':
+                clockCount = parseInt(value);
+                break;
+        }
+    });
 
-// Upgrade costs
-let upgrade1Cost = 10;
-let upgrade2Cost = 50;
-let cursorCost = 100;
-let clockCost = 200;
+    // Update UI elements based on loaded data
+    document.getElementById('score').textContent = score;
+    document.getElementById('cursorCost').textContent = 100 * Math.pow(1.5, cursorCount); // Update cost dynamically
+    document.getElementById('clockCost').textContent = 200 * Math.pow(1.5, clockCount); // Update cost dynamically
+}
+
+// Save game state to cookies
+function saveGameState() {
+    document.cookie = `score=${score}; path=/; max-age=31536000`;
+    document.cookie = `pointsPerClick=${pointsPerClick}; path=/; max-age=31536000`;
+    document.cookie = `cursorCount=${cursorCount}; path=/; max-age=31536000`;
+    document.cookie = `clockCount=${clockCount}; path=/; max-age=31536000`;
+}
 
 // Click event
-clickButton.addEventListener('click', function() {
+document.getElementById('clickButton').addEventListener('click', function() {
     score += pointsPerClick;
-    scoreElement.textContent = score;
+    document.getElementById('score').textContent = score;
+    saveGameState(); // Save game state to cookies
 });
 
-// Buy Upgrade 1 (adds +1 point per click)
-upgradeButton1.addEventListener('click', function() {
+// Upgrade 1 (adds +1 point per click)
+document.getElementById('upgradeButton1').addEventListener('click', function() {
+    const upgrade1Cost = parseInt(document.getElementById('upgrade1Cost').textContent);
     if (score >= upgrade1Cost) {
         score -= upgrade1Cost;
-        pointsPerClick += 1; // +1 point per click
-        upgrade1Cost = Math.floor(upgrade1Cost * 1.5); // Increase cost for Upgrade 1
-        upgrade1CostElement.textContent = upgrade1Cost;
-        scoreElement.textContent = score;
+        pointsPerClick += 1;
+        document.getElementById('upgrade1Cost').textContent = Math.floor(upgrade1Cost * 1.5);
+        document.getElementById('score').textContent = score;
+        saveGameState(); // Save game state to cookies
     } else {
         alert('Not enough points for this upgrade!');
     }
 });
 
-// Buy Upgrade 2 (adds +5 points per click)
-upgradeButton2.addEventListener('click', function() {
+// Upgrade 2 (adds +5 points per click)
+document.getElementById('upgradeButton2').addEventListener('click', function() {
+    const upgrade2Cost = parseInt(document.getElementById('upgrade2Cost').textContent);
     if (score >= upgrade2Cost) {
         score -= upgrade2Cost;
-        pointsPerClick += 5; // +5 points per click
-        upgrade2Cost = Math.floor(upgrade2Cost * 1.5); // Increase cost for Upgrade 2
-        upgrade2CostElement.textContent = upgrade2Cost;
-        scoreElement.textContent = score;
+        pointsPerClick += 5;
+        document.getElementById('upgrade2Cost').textContent = Math.floor(upgrade2Cost * 1.5);
+        document.getElementById('score').textContent = score;
+        saveGameState(); // Save game state to cookies
     } else {
         alert('Not enough points for this upgrade!');
     }
 });
 
-// Buy Cursor Upgrade (adds +1 point per click automatically)
-cursorButton.addEventListener('click', function() {
+// Cursor Upgrade (adds +1 point per click automatically)
+document.getElementById('cursorButton').addEventListener('click', function() {
+    const cursorCost = parseInt(document.getElementById('cursorCost').textContent);
     if (score >= cursorCost) {
         score -= cursorCost;
-        cursorCount += 1; // Adds another cursor
-        cursorCost = Math.floor(cursorCost * 1.5); // Increase cost for next cursor
-        cursorCostElement.textContent = cursorCost;
-        scoreElement.textContent = score;
+        cursorCount += 1;
+        document.getElementById('cursorCost').textContent = Math.floor(cursorCost * 1.5);
+        document.getElementById('score').textContent = score;
+        saveGameState(); // Save game state to cookies
     } else {
         alert('Not enough points for this upgrade!');
     }
 });
 
-// Buy Clock Upgrade (adds +1 click per second)
-clockButton.addEventListener('click', function() {
+// Clock Upgrade (adds +1 click per second)
+document.getElementById('clockButton').addEventListener('click', function() {
+    const clockCost = parseInt(document.getElementById('clockCost').textContent);
     if (score >= clockCost) {
         score -= clockCost;
-        clockCount += 1; // Adds another clock
-        clockCost = Math.floor(clockCost * 1.5); // Increase cost for next clock
-        clockCostElement.textContent = clockCost;
-        scoreElement.textContent = score;
+        clockCount += 1;
+        document.getElementById('clockCost').textContent = Math.floor(clockCost * 1.5);
+        document.getElementById('score').textContent = score;
+        saveGameState(); // Save game state to cookies
 
         // Start the clock if it's not already active
         if (!clockInterval) {
             clockInterval = setInterval(function() {
-                score += clockCount; // Each clock gives 1 click per second
-                scoreElement.textContent = score;
+                score += clockCount;
+                document.getElementById('score').textContent = score;
+                saveGameState(); // Save game state to cookies every second
             }, 1000); // Every 1 second
         }
     } else {
         alert('Not enough points for this upgrade!');
     }
 });
+
+// Initialize the game when the page loads
+window.onload = function() {
+    loadGameState(); // Load game state from cookies
+};
